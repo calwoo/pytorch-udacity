@@ -1,6 +1,7 @@
 import torch
 import numpy as np 
 import matplotlib.pyplot as plt 
+from tqdm import tqdm
 
 from utils import *
 
@@ -11,7 +12,7 @@ print(vgg)
 content = load_image("imgs/octopus.jpg")
 style = load_image("imgs/ben_passmore.jpg", shape=content.shape[-2:])
 # show images
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(20, 10))
+fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(10, 5))
 ax1.imshow(numpy_image(content))
 ax2.imshow(numpy_image(style))
 plt.show()
@@ -68,7 +69,7 @@ optimizer = optim.Adam([target], lr=0.003)
 
 # training loop
 epochs = 2000
-for e in range(1, epochs+1):
+for e in tqdm(range(1, epochs+1)):
     target_features = extract_features(target, vgg)
     # define losses
     content_loss = torch.mean((target_features["conv4_2"] - content_features["conv4_2"])**2)
