@@ -18,9 +18,9 @@ def get_vgg(cuda=False):
         param.requires_grad =False
     if cuda:
         device = torch.device("cuda" if torch.cuda_is_available() else "cpu")
-        vgg.to(device)
+        vgg_features.to(device)
 
-    return vgg
+    return vgg_features
 
 
 
